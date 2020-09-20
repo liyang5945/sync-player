@@ -1,0 +1,227 @@
+body{
+  background-color: #f1f1f1;
+  padding-top: 5%;
+}
+
+@media screen and (min-width: 640px) {
+  .video-container{
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 0 5%;
+  }
+}
+
+.video-box{
+  background-color: #222222;
+}
+.video-control-wrapper{
+  padding: 10px;
+}
+.view-btn{
+  font-size: 16px;
+  color: #44ABFF;
+  vertical-align: middle;
+}
+.address-input {
+  display: block;
+  font-size: 0;
+  margin: 15px 0 ;
+}
+
+.address-input input {
+  display: inline-block;
+  width: calc(100% - 70px);
+  height: 32px;
+  line-height: 16px;
+  font-size: 12px;
+  outline: none;
+  border: 1px solid #44ABFF;
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  border-radius: 3px;
+  padding-left: 5px;
+}
+
+.address-input .submit-btn {
+  display: inline-block;
+  width: 65px;
+  text-align: center;
+  height: 32px;
+  line-height: 32px;
+  font-size: 12px;
+  background-color: #44ABFF;
+  border-radius: 3px;
+  text-decoration: none;
+  color: #FFFFFF;
+  margin-left: 5px;
+}
+
+.sync-btn-box {
+  position: fixed;
+  left: 2em;
+  bottom: 1em;
+  z-index: 2147483647;
+  overflow: hidden;
+  border-radius: 3px;
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  box-shadow: 0 0 3px #000000;
+  background-color: rgba(0, 0, 0, 0.75);
+  background-clip: padding-box;
+  transition: width ease-in-out 0.3s;
+  font-size: 12px;
+}
+
+.btn-play {
+  float: left;
+  height: 3em;
+  margin: 0;
+  border: none;
+  background-color: transparent;
+  color: #EEEEEE;
+  font-size: inherit;
+  font-family: inherit;
+  line-height: 3em;
+  outline: none;
+}
+.video-list-title{
+  font-size: 16px;
+  line-height: 1.5;
+  margin-bottom: 10px;
+}
+.video-list{
+  border: 1px solid #CCCCCC;
+}
+.video-item{
+  padding: 10px;
+  border-bottom: 1px solid #CCCCCC;
+  position: relative;
+}
+.video-item:last-child{
+  border-bottom: none;
+}
+.video-item .button-box{
+  text-align: right;
+}
+.video-name{
+  word-break: break-all;
+  font-size: 14px;
+  line-height: 1.5;
+}
+.button-play{
+  display: inline-block;
+  padding: 0 10px;
+  text-align: center;
+  height: 32px;
+  line-height: 32px;
+  font-size: 12px;
+  background-color: #44ABFF;
+  border-radius: 3px;
+  text-decoration: none;
+  color: #FFFFFF;
+}
+
+#coplay {
+  display: inline-block;
+  vertical-align: middle;
+  height: 3em;
+  z-index: 2147483647; /* max integer */
+  overflow: hidden;
+  border-radius: 3px;
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  box-shadow: 0 0 3px #000;
+  background-color: rgba(0, 0, 0, 0.75);
+  background-clip: padding-box;
+  transition: width ease-in-out 0.3s;
+  font-size: 16px;
+  box-sizing: content-box;
+}
+
+
+#coplay input,
+#coplay button {
+  float: left;
+  height: 3em;
+  margin: 0;
+  border: none;
+  background-color: transparent;
+  color: #eee;
+  font-size: inherit;
+  font-family: inherit;
+  line-height: 3em;
+  outline: none;
+}
+#coplay button:active {
+  background: none;
+}
+#coplay button::-moz-focus-inner {
+  border-style: none;
+  padding: 0;
+}
+
+#coplay input {
+  width: 11em;
+  padding: 0 1em;
+  font-family: Consolas, monospace;
+  text-align: left;
+}
+
+#coplay input + input,
+#coplay input + button,
+#coplay button + input,
+#coplay button + button {
+  border-left: none;
+}
+
+#coplay input::-moz-placeholder {
+  font-family: inherit;
+  color: #999;
+}
+#coplay input::-webkit-input-placeholder {
+  font-family: inherit;
+  color: #999;
+}
+#coplay input:focus::-moz-placeholder {
+  color: #ccc;
+}
+#coplay input:focus::-webkit-input-placeholder {
+  color: #ccc;
+}
+
+#coplay input:focus {
+  color: #fff;
+  background-color: rgba(255, 255, 255, 0.3);
+}
+
+#coplay button {
+  width: 3em;
+  padding: 0;
+  border-radius: 0;
+  text-align: center;
+}
+
+
+
+#coplay button:not(:disabled) {
+  cursor: pointer;
+}
+
+#coplay button:disabled {
+  opacity: 0.3;
+}
+
+#coplay button svg {
+  display: inline-block;
+  height: 1em;
+  fill: currentColor;
+  vertical-align: middle;
+}
+
+#coplay-fullscreen svg:last-child,
+#coplay-fullscreen.active svg:first-child {
+  display: none;
+}
+
+#coplay-fullscreen.active svg:last-child {
+  display: inline-block;
+}
+

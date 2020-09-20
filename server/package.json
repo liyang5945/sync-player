@@ -1,0 +1,8 @@
+{
+  "name": "sync-player-server",
+  "version": "1.0.0",
+  "description": "sync-player websocket server",
+  "dependencies": {
+    "socket.io": "^2.3.0"
+  }
+}

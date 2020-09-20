@@ -1,0 +1,86 @@
+<html lang="zh-cn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=0"/>
+    <title>sync-player</title>
+    <link rel="icon" href="./favicon.png">
+    <link rel="stylesheet" href="./style/reset.css">
+    <link rel="stylesheet" href="./style/coplay.css">
+</head>
+<body>
+<div id="app"></div>
+</body>
+<script src="./script/vue.min.js"></script>
+<script src="./script/socket.io.js"></script>
+<script src="./script/goeasy-1.1.1.js"></script>
+<script type="text/x-template" id="template">
+    <div class="video-container">
+        <div class="video-box">
+            <h2 class="video-name"></h2>
+            <video
+                    ref="video"
+                    preload="auto"
+                    controls
+                    controlsList="nofullscreen nodownload noremoteplayback"
+                    style="width: 100% ;height: auto"
+                    playsinline=""
+            >
+                <source :src="videoSrc" type="video/mp4"/>
+                <p class="vjs-no-js">
+                    To view this video please enable JavaScript, and consider upgrading to a
+                    web browser that
+                    <a href="https://videojs.com/html5-video-support/" target="_blank"
+                    >supports HTML5 video</a
+                    >
+                </p>
+            </video>
+        </div>
+        <div class="video-control-wrapper">
+            <article id="coplay" class="active" data-drag-id="0" style="cursor: default; transform: translate(0px);">
+                <button @click="playVideo" id="coplay-play" title="Play">
+                    <svg v-if="!playing" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1408 1792">
+                        <path d="M1384 927L56 1665q-23 13-39.5 3T0 1632V160q0-26 16.5-36t39.5 3l1328 738q23 13 23 31t-23 31z"></path>
+                    </svg>
+                    <svg v-else xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1536 1792">
+                        <path
+                                d="M1536 192v1408q0 26-19 45t-45 19H960q-26 0-45-19t-19-45V192q0-26 19-45t45-19h512q26 0 45 19t19 45zm-896 0v1408q0 26-19 45t-45 19H64q-26 0-45-19t-19-45V192q0-26 19-45t45-19h512q26 0 45 19t19 45z"></path>
+                    </svg>
+                </button>
+                <button @click="seekVideo" id="coplay-sync" title="Sync with me">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1536 1792">
+                        <path
+                                d="M1511 1056q0 5-1 7-64 268-268 434.5T764 1664q-146 0-282.5-55T238 1452l-129 129q-19 19-45 19t-45-19-19-45v-448q0-26 19-45t45-19h448q26 0 45 19t19 45-19 45l-137 137q71 66 161 102t187 36q134 0 250-65t186-179q11-17 53-117 8-23 30-23h192q13 0 22.5 9.5t9.5 22.5zm25-800v448q0 26-19 45t-45 19h-448q-26 0-45-19t-19-45 19-45l138-138Q969 384 768 384q-134 0-250 65T332 628q-11 17-53 117-8 23-30 23H50q-13 0-22.5-9.5T18 736v-7q65-268 270-434.5T768 128q146 0 284 55.5T1297 340l130-129q19-19 45-19t45 19 19 45z"></path>
+                    </svg>
+                </button>
+                <button @click="toggleFullScreen" id="coplay-fullscreen" title="Toggle fullscreen">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1536 1792">
+                        <path
+                                d="M755 1056q0 13-10 23l-332 332 144 144q19 19 19 45t-19 45-45 19H64q-26 0-45-19t-19-45v-448q0-26 19-45t45-19 45 19l144 144 332-332q10-10 23-10t23 10l114 114q10 10 10 23zm781-864v448q0 26-19 45t-45 19-45-19l-144-144-332 332q-10 10-23 10t-23-10L791 759q-10-10-10-23t10-23l332-332-144-144q-19-19-19-45t19-45 45-19h448q26 0 45 19t19 45z"></path>
+                    </svg>
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1536 1792">
+                        <path
+                                d="M768 960v448q0 26-19 45t-45 19-45-19l-144-144-332 332q-10 10-23 10t-23-10L23 1527q-10-10-10-23t10-23l332-332-144-144q-19-19-19-45t19-45 45-19h448q26 0 45 19t19 45zm755-672q0 13-10 23l-332 332 144 144q19 19 19 45t-19 45-45 19H832q-26 0-45-19t-19-45V384q0-26 19-45t45-19 45 19l144 144 332-332q10-10 23-10t23 10l114 114q10 10 10 23z"></path>
+                    </svg>
+                </button>
+            </article>
+            <a class="view-btn" href="/movie/">浏览目录</a>
+
+            <div class="address-input">
+                <input v-model="videoSrc" type="text" placeholder="视频地址">
+                <a href="javascript:;" class="submit-btn" @click="addVideo">添加视频</a>
+            </div>
+            <h2 class="video-list-title">视频列表：</h2>
+            <ul class="video-list">
+                <li class="video-item" v-for="(videoItem,index) in videoList" :key="index">
+                    <p class="video-name">{{videoItem}}</p>
+                    <div class="button-box">
+                        <a href="javascript:;" class="button-play" @click="playVideoItem(videoItem)">播放</a>
+                        <a href="javascript:;" class="button-play" @click="deleteVideoItem(index)">删除</a>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+</script>
+<script src="./script/main.js"></script>
+</html>
