@@ -56,6 +56,17 @@ GoEasy官网：https://www.goeasy.io
 
 除了websocket服务器之外，还需要两个http服务端，一个是web服务端(提供html、css、js等文件的访问)，一个是视频服务端(提供视频文件访问)。
 
+3、使用leancloud-realtime
+
+leancloud-realtime是啥玩意？简单来说就是一个即时通讯SDK，这里不多介绍，请去[leancloud官网](https://leancloud.cn/docs/realtime_v2.html) 了解。这个服务也是使用websocket传输数据的，所以本项目也能用，我们只要把传输的文本消息换成一个JSON字符串即可。而且leancloud为开发者提供了一些免费额度，消息数量不限，只有120次/分钟的限制，个人使用的话是完全够用的，强烈推荐这个。
+
+首先注册leancloud开发者账号，进入控制台，获得appId、appKey等信息，复制到对应位置(client/script/main.js)，第一次执行时会生成一个对话(conversation)，在leancloud控制台>即时通讯>对话下面，复制一个conversation id到对应位置
+
+![TvG1Qs.png](https://s4.ax1x.com/2022/01/05/TvG1Qs.png)
+
+![TvGQzj.png](https://s4.ax1x.com/2022/01/05/TvGQzj.png)
+
+
 你可以将web服务部端署到以下位置：
 
 + 具有公网IP的服务器
@@ -78,7 +89,7 @@ GoEasy官网：https://www.goeasy.io
 
 使用场景3：需要使用zerotier或其他VPN工具将异地设备组成一个大局域网，其中任意一台PC均可作为websocket服务端和http服务端(需要上传带宽足够大)。上图中各设备都访问那台PC的内网ip即可。
 
-最简单的使用方法，下载nginx开启一个本地服务器，下载本项目client文件夹放到到nginx根目录里，视频文件也放到里面。注册goeasy开发者账号并创建一个应用，获得appkey，并填入到appkey到代码(`script/main.js`)相应位置。然后浏览器打开 `192.168.3.58/client/`，填入你的视频地址`192.168.3.58/movie/xxx.mp4`或网络视频地址，对方也这样操作一番，即可实现同步播放视频，不过这种方法只能白嫖两个月。
+最简单的使用方法，下载nginx开启一个本地服务器，下载本项目client文件夹放到到nginx根目录里，视频文件也放到里面。注册leancloud开发者账号并创建一个应用，获得appId、appKey等信息，并填入到代码(`script/main.js`)相应位置。然后浏览器打开 `192.168.3.58/client/`，填入你的视频地址`192.168.3.58/movie/xxx.mp4`或网络视频地址，对方也这样操作一番，即可实现同步播放视频。
 
 web版本的功能比较简单，而且受限于网络问题，快进之类的操作需要缓冲一段时间。如果你不满足web版功能，对用户体验有更高的要求，如支持更多文件格式、播放高清本地视频文件、外挂字幕等，我也找到了另一种方式来满足你的需求。
 
