@@ -60,7 +60,7 @@ GoEasy官网：https://www.goeasy.io
 
 leancloud-realtime是啥玩意？简单来说就是一个即时通讯SDK，这里不多介绍，请去[leancloud官网](https://leancloud.cn/docs/realtime_v2.html) 了解。这个服务也是使用websocket传输数据的，所以本项目也能用，我们只要把传输的文本消息换成一个JSON字符串即可。而且leancloud为开发者提供了一些免费额度，消息数量不限，只有120次/分钟的限制，个人使用的话是完全够用的，强烈推荐这个。
 
-首先注册leancloud开发者账号，进入控制台，获得appId、appKey等信息，复制到对应位置(client/script/main.js)，第一次执行时会生成一个对话(conversation)，在leancloud控制台>即时通讯>对话下面，复制一个conversation id到对应位置
+首先注册leancloud开发者账号，进入控制台，获得appId、appKey等信息，复制到对应位置(client/script/main.js)，第一次执行(使用浏览器打开页面)这段代码时会生成一个对话(conversation)，在leancloud控制台>即时通讯>对话下面，复制一个conversation id到对应位置
 
 ![TvG1Qs.png](https://s4.ax1x.com/2022/01/05/TvG1Qs.png)
 
@@ -106,3 +106,11 @@ web版本的功能比较简单，而且受限于网络问题，快进之类的�
 具体方法请看：[修改教程](how-to-modify-splayer.md)
 
 本项目部分图标样式来源于此项目: [coplay](https://github.com/Justineo/coplay) 
+
+## 更新记录
+
+2022-01-05
+- 添加leancloud即时通讯方案、完善修改射手影音的教程。
+
+2022-01-18
+- 添加m3u8视频支持。

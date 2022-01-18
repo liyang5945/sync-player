@@ -6,9 +6,10 @@ const App = new Vue({
   data: {
     socket: null,
     player: null,
+    hls: null,
     goEasyConnect: null,
     videoList: [],
-    videoSrc: 'http://192.168.3.58:8088/movie/Better.Call.Saul.S05E08.mp4',
+    videoSrc: 'https://d2zihajmogu5jn.cloudfront.net/bipbop-advanced/bipbop_16x9_variant.m3u8',
     playing: false,
     controlParam: {
       user: '',
@@ -41,7 +42,12 @@ const App = new Vue({
       localStorage.setItem('videoList', JSON.stringify(this.videoList))
     },
     playVideoItem(src) {
-      this.$refs.video.src = src
+      if(src.includes('.m3u8')){
+        this.hls.loadSource(src);
+        this.hls.attachMedia(this.player);
+      } else {
+        this.$refs.video.src = src
+      }
       localStorage.setItem('currentPlayVideo', src)
 
     },
@@ -120,7 +126,9 @@ const App = new Vue({
 
     const currentPlayVideo = localStorage.getItem('currentPlayVideo')
 
-    this.videoSrc = currentPlayVideo ? currentPlayVideo : ''
+    if(currentPlayVideo){
+      this.videoSrc = currentPlayVideo
+    }
 
     this.userId = this.randomString(10)
 
@@ -129,6 +137,12 @@ const App = new Vue({
   mounted() {
 
     this.player = this.$refs.video
+
+    if (Hls.isSupported()) {
+      this.hls = new Hls();
+      this.hls.loadSource(this.videoSrc);
+      this.hls.attachMedia(this.player);
+    }
 
     /*使用socket-io*/
     // this.socket = io('http://192.168.3.58:2233'); // 替换成你的websocket服务地址
