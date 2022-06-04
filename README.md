@@ -105,6 +105,9 @@ web版本的功能比较简单，而且受限于网络问题，快进之类的�
 
 具体方法请看：[修改教程](how-to-modify-splayer.md)
 
+PS：射手影音官方的代码打包之后会有一个bug，窗口无法拖动，我自己fork了一个分支，修正了这个bug，控制同步的代码也都加进去了，需要的可以直接fork，修改一下appKey即可，地址：https://github.com/liyang5945/splayerx
+
+
 本项目部分图标样式来源于此项目: [coplay](https://github.com/Justineo/coplay) 
 
 ## 更新记录
