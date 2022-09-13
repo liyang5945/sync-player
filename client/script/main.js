@@ -17,11 +17,11 @@ const App = new Vue({
       time: '',
     },
     userId: '',
-    // goEasy 添加以下变量
+    /* goEasy 添加以下变量 */
     channel: 'channel1', // GoEasy channel
     appkey: '******', // GoEasy应用appkey，替换成你的appkey
 
-    // leancloud-realtime 添加以下变量，appId、appKey、server这几个值去leancloud控制台>设置>应用凭证里面找
+    /* leancloud-realtime 添加以下变量，appId、appKey、server这几个值去leancloud控制台>设置>应用凭证里面找 */
     chatRoom: null,
     appId: '*******************',
     appKey: '*******************',
@@ -134,17 +134,17 @@ const App = new Vue({
       var oUrl = window.location.href.toString();
       var nUrl = "";
       var pattern=param+'=([^&]*)';
-      var replaceText=param+'='+val; 
+      var replaceText=param+'='+val;
       if(oUrl.match(pattern)){
           var tmp='/('+ param+'=)([^&]*)/gi';
           tmp=oUrl.replace(eval(tmp),replaceText);
           nUrl = tmp;
-      }else{ 
-          if(oUrl.match('[\?]')){ 
-            nUrl = oUrl+'&'+replaceText; 
-          }else{ 
-            nUrl = oUrl+'?'+replaceText; 
-          } 
+      }else{
+          if(oUrl.match('[\?]')){
+            nUrl = oUrl+'&'+replaceText;
+          }else{
+            nUrl = oUrl+'?'+replaceText;
+          }
       }
       history.replaceState(stateObject,title,nUrl);
     }
@@ -181,7 +181,10 @@ const App = new Vue({
       this.hls.attachMedia(this.player);
     }
 
-    /*使用socket-io*/
+    const that = this
+
+    /*使用socket-io--------------------------*/
+
     // this.socket = io('http://192.168.3.58:2233'); // 替换成你的websocket服务地址
     // this.socket.on('video-control', (res) => {
     //   const result = JSON.parse(res);
@@ -190,7 +193,10 @@ const App = new Vue({
     //   }
     // });
 
-    /* 使用GoEasy*/
+    /*使用socket-io--------------------------*/
+
+
+    /* 使用GoEasy ---------------------------*/
 
     // /* 创建GoEasy连接*/
     // this.goEasyConnect = new GoEasy({
@@ -207,8 +213,6 @@ const App = new Vue({
     //   }
     // })
     //
-    const that = this
-    //
     // /* 监听GoEasy连接*/
     // this.goEasyConnect.subscribe({
     //   channel: this.channel,
@@ -219,6 +223,11 @@ const App = new Vue({
     //     }
     //   }
     // })
+
+    /* 使用GoEasy ---------------------------*/
+
+
+    /* 使用leanCloud ---------------------------*/
 
     const realtime = new Realtime({
       appId: this.appId,
@@ -304,6 +313,8 @@ const App = new Vue({
         console.error(err);
         console.log('错误：' + err.message);
       });
+
+    /* 使用leanCloud ---------------------------*/
 
     this.player.addEventListener('play', () => {
       this.playing = true
